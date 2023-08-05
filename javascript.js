@@ -5,6 +5,8 @@ const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
 const readInput = document.querySelector('#read');
 
+const errorMessages = document.querySelectorAll('.error');
+
 const titleError = document.querySelector('#titleError');
 const authorError = document.querySelector('#authorError');
 const pagesError = document.querySelector('#pagesError');
@@ -15,6 +17,7 @@ const bookForm = document.querySelector('#bookForm');
 const addBookButton = document.querySelector('#addBookButton');
 const cancelButton = document.querySelector('#cancelButton');
 const removeButtons = document.querySelectorAll('.remove-button');
+const bookListTableBody = document.querySelector('#bookList');
 
 // Hide error messages when called 
 function clearErrorMessages() {
@@ -34,6 +37,7 @@ function storeBooks() {
         displayBooks();
     }
 }
+
 clearErrorMessages();
 //calls storeBooks function to store books and display
 storeBooks();
@@ -84,10 +88,8 @@ function addBook() {
 }
 
 function displayBooks() {
-    const bookListTableBody = document.querySelector('#bookList');
     bookListTableBody.textContent = '';
 
-   // for(const book of myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
         const book = myLibrary[i];
         const bookRow = document.createElement('tr');
@@ -95,12 +97,30 @@ function displayBooks() {
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.pages}</td>
-                <td>${book.read ? 'Read' : 'Not Read'}</td>
+                <td><button class="read-status-button" data-index="${i}">
+                    ${book.read ? 'Read' : 'Not Read'}
+                </button></td>
                 <td><button class="remove-button" data-index="${i}">Remove</button></td>
         `;
+
         bookListTableBody.appendChild(bookRow);
     }
 }
+// called with event listener to toggle between read/not read when clicked
+function toggleReadStatus(index) {
+    myLibrary[index].read = !myLibrary[index].read;
+    localStorage.setItem('library', JSON.stringify(myLibrary));
+    displayBooks();
+}
+
+// calls toggleReadStatus function to toggle between read/not read on click
+bookListTableBody.addEventListener('click', function(event) {
+    if(event.target.classList.contains('read-status-button')) {
+        const index = parseInt(event.target.getAttribute('data-index'));
+        toggleReadStatus(index);
+    }
+})
+
 // clears input fields when after add book button clicked
 function clearInputFields() {
     document.querySelector('#title').value = '';
@@ -110,14 +130,17 @@ function clearInputFields() {
 }
 
 function removeBook(event) {
-    console.log("Removing book...");
-    const index = event.target.getAttribute('data-index');
-    console.log(index);
+    const index = parseInt(event.target.getAttribute('data-index'));
     myLibrary.splice(index, 1);
-    console.log("Updated library after splice:", myLibrary);
     localStorage.setItem('library', JSON.stringify(myLibrary));
     displayBooks();
 }
+// makes remove button function
+bookListTableBody.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-button')) {
+        removeBook(event);
+    }
+});
 
 removeButtons.forEach(button => {
     button.addEventListener('click', removeBook);

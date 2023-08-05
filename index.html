@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Shadows+Into+Light&display=swap');
+      </style>
     <script src="javascript.js" defer></script>
     <title>Library</title>
 </head>
 <body>
     <h1>My Book Library</h1>
- 
     <button id="newBookButton">New Book</button>
     <div id="popupForm" class="popup">
     <div>
@@ -32,8 +34,10 @@
         <label for="read">Read</label>
         <input type="checkbox" id="read" required>
     </div>
-    <button id="addBookButton">Add Book</button>
-    <button id="cancelButton">Cancel</button>
+    <div class="popup-button-container">
+        <button class="popup-button" id="addBookButton">Add Book</button>
+        <button class="popup-button" id="cancelButton">Cancel</button>
+    </div>
 </form>
 </div>
     <table>
@@ -42,6 +46,7 @@
             <th>Author</th>
             <th>Pages</th>
             <th>Read</th>
+            <th>Delete</th>
         </tr>
         <tbody id="bookList"></tbody>
     </table>

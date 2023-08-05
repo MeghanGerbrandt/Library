@@ -1,18 +1,47 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 500px;
-    margin: 0;
-    padding: 20px;
+    height: 100vh;
+    background-color:rgb(244, 238, 230);
 }
 
 h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: lighter;
+    font-size: 48px;
     text-align: center;
 }
 
-div {
-    margin-bottom: 10px;
+table {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 800px;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
+table th {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: lighter;
+    font-size: 24px;
+    padding: 20px; 
+    text-align: center;
+}
+
+td, th {
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+/* inside popup box*/
+div {
+  margin-bottom: 10px;
+}
+
+/*inside popup box*/
 label {
     display: inline-block;
     width: 80px;
@@ -25,8 +54,32 @@ input {
 button {
     display: block;
     margin: 10px auto;
+    color: white;
+    border: none;
+    padding: 10px;
+    background-color: gray;
+    font-weight: bold;
+    font-size: 14px;
+}
+button:hover {
+    background: lightslategray;
 }
 
+.popup-button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.popup-button {
+    flex: 1;
+    padding: 10px;
+    
+}
+.error {
+    color: red;
+    
+}
 #bookList {
     margin-top: 20px;
 }
@@ -38,7 +91,17 @@ button {
     transform: translate(-50%, -50%);
     background: white;
     border: 1px solid #ccc;
-    padding: 20px;
+    padding: 40px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     z-index: 999;
+
 }
+
+.read-status-button {
+    background-color: #EA4C89;
+}
+
+.read-status-button:hover {
+    background-color: #F082AC;
+}
+
